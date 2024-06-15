@@ -8,6 +8,7 @@ import yt_dlp
 import json
 import ffmpeg
 from tkinter import messagebox
+import requests
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -24,7 +25,8 @@ if not os.path.exists('downloaded_files'):
     os.makedirs('downloaded_files')
 else:
     pass
-
+def update_checker():
+    requests.get()
 def download_video(event=None):
     original_cwd = os.getcwd()
     os.chdir('downloaded_files')
