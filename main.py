@@ -9,6 +9,7 @@ import json
 import ffmpeg
 from tkinter import messagebox
 import requests
+from packaging.version import Version
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -26,7 +27,13 @@ if not os.path.exists('downloaded_files'):
 else:
     pass
 def update_checker():
-    requests.get()
+    installed_ver = Version("1.0.0")
+    getver = requests.get("https://raw.githubusercontent.com/1333481/SkibidiDownloader/main/Update/current_version.txt")
+    current_ver = Version(getver)
+    if current_ver > installed_ver:
+        wants_to_update = messagebox.askyesno("Update Available!", f"Would you like to update to {current_ver}?")
+        if wants_to_update:
+            
 def download_video(event=None):
     original_cwd = os.getcwd()
     os.chdir('downloaded_files')
