@@ -26,6 +26,10 @@ if not os.path.exists('downloaded_files'):
     os.makedirs('downloaded_files')
 else:
     pass
+if os.path.exists('Skibidi Downloader Installer.exe'):
+    os.remove('Skibidi Downloader Installer.exe')
+else:
+    pass
 def update_checker():
     installed_ver = Version("1.0.0")
     response = requests.get("https://api.github.com/repos/1333481/SkibidiDownloader/releases/latest")
@@ -42,7 +46,8 @@ def update_checker():
                     for chunk in r.iter_content(chunk_size=8192):
                         f.write(chunk)
             try:
-                subprocess.run([local_filename], check=True)
+                subprocess.Popen([local_filename])
+                sys.exit(0)
             except subprocess.CalledProcessError as e:
                 messagebox.showerror("Error!", "Error opening EXE!")
 
