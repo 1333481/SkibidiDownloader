@@ -28,12 +28,31 @@ else:
     pass
 def update_checker():
     installed_ver = Version("1.0.0")
-    getver = requests.get("https://raw.githubusercontent.com/1333481/SkibidiDownloader/main/Update/current_version.txt")
+    response = requests.get("https://api.github.com/repos/1333481/SkibidiDownloader/releases/latest")
+    release_info = response.json()
+    getver = release_info['tag_name']
     current_ver = Version(getver)
+    local_filename = 'Skibidi Downloader Installer.exe'
     if current_ver > installed_ver:
         wants_to_update = messagebox.askyesno("Update Available!", f"Would you like to update to {current_ver}?")
         if wants_to_update:
-            
+            with requests.get("https://github.com/1333481/SkibidiDownloader/releases/latest/download/Skibidi.Downloader.Installer.exe", stream=True) as r:
+                r.raise_for_status()
+                with open(local_filename, 'wb') as f:
+                    for chunk in r.iter_content(chunk_size=8192):
+                        f.write(chunk)
+            try:
+                subprocess.run([local_filename], check=True)
+            except subprocess.CalledProcessError as e:
+                messagebox.showerror("Error!", "Error opening EXE!")
+
+        else:
+            pass
+    else:
+        pass
+
+update_checker()
+
 def download_video(event=None):
     original_cwd = os.getcwd()
     os.chdir('downloaded_files')
