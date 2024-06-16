@@ -33,7 +33,7 @@ else:
 def update_checker():
     system = platform.system()
     if system == 'Windows':
-        installed_ver = Version("1.0.1")
+        installed_ver = Version("1.0.0")
         response = requests.get("https://api.github.com/repos/1333481/SkibidiDownloader/releases/latest")
         release_info = response.json()
         getver = release_info['tag_name']
@@ -49,7 +49,7 @@ def update_checker():
                             f.write(chunk)
                 try:
                     subprocess.Popen([local_filename])
-                    sys.exit(0)
+                    os._exit()
                 except subprocess.CalledProcessError as e:
                     messagebox.showerror("Error!", "Error opening EXE!")
 
