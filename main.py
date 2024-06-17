@@ -33,7 +33,7 @@ else:
 def update_checker():
     system = platform.system()
     if system == 'Windows':
-        installed_ver = Version("1.0.2")
+        installed_ver = Version("1.0.3")
         response = requests.get("https://api.github.com/repos/1333481/SkibidiDownloader/releases/latest")
         release_info = response.json()
         getver = release_info['tag_name']
@@ -112,7 +112,7 @@ def opendir(event=None):
     elif system == 'Linux':
         subprocess.Popen(['xdg-open', cwd])
     else:
-        messagebox.showerror("Error", "Bruh what fucking system are you using lol")
+        messagebox.showerror("Error", "Bruh what fucking system are you using lol\nAlthough you can submit a pull request to add your system!\nhttps://github.com/1333481/SkibidiDownloader/pulls")
     
 
 
